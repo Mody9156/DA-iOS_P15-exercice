@@ -1,9 +1,9 @@
-name: Pull Request
+name: iOS Build and Test
 
 on:
   pull_request:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 jobs:
