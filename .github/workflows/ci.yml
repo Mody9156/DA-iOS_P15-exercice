@@ -46,20 +46,28 @@ jobs:
           key: ${{ runner.os }}-deps-v1-${{ hashFiles('BILDsolid.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
           restore-keys: ${{ runner.os }}-deps-v1-
 
+      # Lister les simulateurs disponibles
+      - name: List Available Simulators
+        run: |
+          xcrun simctl list devices
+
+      # Démarrer l'iPhone 11 Simulator
+      - name: Start iPhone 11 Simulator
+        run: |
+          # Démarre le simulateur iPhone 11 avec iOS 16.2
+          xcrun simctl boot 8F763915-7035-4E60-BBED-BE48E7319F86
+          xcrun simctl list devices
+
       # Exécution des tests (sans cache)
       - name: Run Tests (No Cache)
         if: steps.setup.outputs.cache-hit != 'true'
         run: |
-          # Vérifier la liste des simulateurs disponibles et choisir un appareil valide
-          xcrun simctl list devices
-          # Utiliser un simulateur spécifique (iPhone 14 Pro Max avec iOS 16.2)
-          bundle exec fastlane ios unit_test clean:true skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
+          # Exécuter les tests sur l'iPhone 11 avec iOS 16.2
+          bundle exec fastlane ios unit_test clean:true skip_package_dependencies_resolution:true platform=ios simulator='iPhone 11' os='16.2'
 
       # Exécution des tests (avec cache)
       - name: Run Tests (Cache)
         if: steps.setup.outputs.cache-hit == 'true'
         run: |
-          # Vérifier la liste des simulateurs disponibles et choisir un appareil valide
-          xcrun simctl list devices
-          # Exécuter les tests sur un simulateur spécifique (iPhone 14 Pro Max avec iOS 16.2) avec cache
-          bundle exec fastlane ios unit_test clean:true skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
+          # Exécuter les tests avec cache sur l'iPhone 11 avec iOS 16.2
+          bundle exec fastlane ios unit_test clean:true skip_package_dependencies_resolution:true platform=ios simulator='iPhone 11' os='16.2'
