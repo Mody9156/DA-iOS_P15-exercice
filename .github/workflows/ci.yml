@@ -50,18 +50,7 @@ jobs:
       - name: List Available Simulators
         run: |
           xcrun simctl list devices
-
-      # Vérifier si le simulateur iPhone 11 est déjà démarré
-      - name: Check if iPhone 11 is Booted
-        run: |
-          if [[ $(xcrun simctl list devices | grep "iPhone 11" | grep "Booted") ]]; then
-            echo "iPhone 11 is already booted."
-          else
-            echo "iPhone 11 is not booted. Booting now..."
-            xcrun simctl boot 8F763915-7035-4E60-BBED-BE48E7319F86
-          fi
-          xcrun simctl list devices
-
+          
       # Exécution des tests (sans cache)
       - name: Run Tests (No Cache)
         if: steps.setup.outputs.cache-hit != 'true'
