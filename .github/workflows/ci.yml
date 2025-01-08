@@ -21,7 +21,10 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      # Installer Ruby 3.x au lieu de 2.7
       - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.0  # ou une version plus récente de Ruby (par exemple, 3.1, 3.2)
 
       - name: Install Bundler
         run: gem install bundler
