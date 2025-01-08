@@ -53,7 +53,7 @@ jobs:
           # Vérifier la liste des simulateurs disponibles et choisir un appareil valide
           xcrun simctl list devices
           # Utiliser un simulateur spécifique (iPhone 14 Pro Max avec iOS 16.2)
-          bundle exec fastlane test skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
+          bundle exec fastlane ios unit_test clean:true skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
 
       # Exécution des tests (avec cache)
       - name: Run Tests (Cache)
@@ -62,4 +62,4 @@ jobs:
           # Vérifier la liste des simulateurs disponibles et choisir un appareil valide
           xcrun simctl list devices
           # Exécuter les tests sur un simulateur spécifique (iPhone 14 Pro Max avec iOS 16.2) avec cache
-          bundle exec fastlane test skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
+          bundle exec fastlane ios unit_test clean:true skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'

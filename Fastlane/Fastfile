@@ -10,5 +10,6 @@ platform :ios do
         skip_package_dependencies_resolution: options[:skip_package_dependencies_resolution]
       )
     end
+    
 
 end
