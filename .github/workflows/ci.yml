@@ -22,10 +22,10 @@ jobs:
         with:
           xcode-version: latest
 
-      # Installer la dernière version stable de Ruby
+      # Installer une version stable de Ruby (par exemple 3.2.0)
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "latest"  # Installer la dernière version stable de Ruby
+          ruby-version: "3.2.0"  # Remplacez "latest" par une version spécifique de Ruby
 
       # Installer la dernière version de Bundler
       - name: Install Bundler
