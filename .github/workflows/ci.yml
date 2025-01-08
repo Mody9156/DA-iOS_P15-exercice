@@ -17,10 +17,10 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
-      # Installer Xcode 14.2
+      # Installer la dernière version stable d'Xcode (qui est Xcode 15.x)
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '14.2'
+          xcode-version: '15.0'
 
       # Installer Ruby et Bundler
       - uses: ruby/setup-ruby@v1
@@ -36,4 +36,5 @@ jobs:
       # Lancer les tests
       - name: Run Tests
         run: |
+          # Utiliser Xcode 15.x avec un simulateur iPhone 14 Pro Max et iOS 16.2
           bundle exec fastlane ios unit_test platform=ios simulator='iPhone 14 Pro Max' os='16.2'
