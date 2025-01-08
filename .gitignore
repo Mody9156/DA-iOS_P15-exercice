@@ -14,3 +14,9 @@ xcuserdata/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+
+Build
+
+# fastlane
+Fastlane/report.xml
+Fastlane/test_output
