@@ -17,18 +17,21 @@ jobs:
         with:
           access_token: ${{ github.token }}
 
+      # Installer la dernière version stable d'Xcode
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: latest
 
-      # Installer Ruby 3.x au lieu de 2.7
+      # Installer la dernière version stable de Ruby
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0.0  # ou une version plus récente de Ruby (par exemple, 3.1, 3.2)
+          ruby-version: "latest"  # Installer la dernière version stable de Ruby
 
+      # Installer la dernière version de Bundler
       - name: Install Bundler
         run: gem install bundler
 
+      # Installer les gems nécessaires
       - name: Install gems
         run: bundle install
 
@@ -43,19 +46,20 @@ jobs:
           key: ${{ runner.os }}-deps-v1-${{ hashFiles('BILDsolid.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
           restore-keys: ${{ runner.os }}-deps-v1-
 
-      # Déterminer la version de simulateur disponible et l'utiliser pour les tests
+      # Exécution des tests (sans cache)
       - name: Run Tests (No Cache)
         if: steps.setup.outputs.cache-hit != 'true'
         run: |
           # Vérifier la liste des simulateurs disponibles et choisir un appareil valide
           xcrun simctl list devices
-          # Utiliser un simulateur valide pour les tests
-          bundle exec fastlane test skip_package_dependencies_resolution:true platform=ios simulator='iPhone 15 Pro' os='17.0'
+          # Utiliser un simulateur spécifique (iPhone 14 Pro Max avec iOS 16.2)
+          bundle exec fastlane test skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
 
+      # Exécution des tests (avec cache)
       - name: Run Tests (Cache)
         if: steps.setup.outputs.cache-hit == 'true'
         run: |
           # Vérifier la liste des simulateurs disponibles et choisir un appareil valide
           xcrun simctl list devices
-          # Exécuter les tests sur un simulateur valide avec cache
-          bundle exec fastlane test skip_package_dependencies_resolution:true platform=ios simulator='iPhone 15 Pro' os='17.0'
+          # Exécuter les tests sur un simulateur spécifique (iPhone 14 Pro Max avec iOS 16.2) avec cache
+          bundle exec fastlane test skip_package_dependencies_resolution:true platform=ios simulator='iPhone 14 Pro Max' os='16.2'
